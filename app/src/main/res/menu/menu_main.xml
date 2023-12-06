@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_comfirm_order"
+        android:title="Xác nhận đơn"
+        android:icon="@mipmap/confirm"/>
+    <item android:id="@+id/menu_statistic"
+        android:title="Thống kê doanh thu"
+        android:icon="@mipmap/statistic"/>
+    <item android:id="@+id/menu_comfirm_complete"
+        android:title="Hoàn thành đơn"
+        android:icon="@mipmap/completed"/>
+    <item android:id="@+id/menu_logout"
+        android:title="Đăng xuất"
+        android:icon="@drawable/baseline_logout_24"/>
+</menu>
