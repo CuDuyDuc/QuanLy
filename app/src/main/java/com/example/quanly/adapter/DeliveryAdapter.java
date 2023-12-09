@@ -42,7 +42,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.ViewHo
         OrderOuter orderOuter = orderOuters.get(position);
         holder.id.setText(orderOuter.getIddonhang());
         holder.date.setText(orderOuter.getDate());
-        holder.totalprice.setText("Tổng tiền: "+ orderOuter.getTotalprice() + "đ");
+        holder.totalprice.setText("Tổng tiền: "+ orderOuter.getTotalprice() + "VNĐ");
         setData(orderOuter.getIddonhang() , holder.rcv);
         holder.btncomplete.setOnClickListener(v -> {
             orderDAO.changCompleted(orderOuter.getIddonhang(), new OrderDAO.OrderDAOITF() {

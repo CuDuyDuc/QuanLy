@@ -82,7 +82,7 @@ public class OrderOuterAdapter extends RecyclerView.Adapter<OrderOuterAdapter.Vi
                 for (int i = 0; i < arr.size() ; i++) {
                     tongtienhang += (arr.get(i).getPrice() * arr.get(i).getQuantitty());
                 }
-                price.setText("Tổng tiền: "+(tongtienhang + ship) + " đ");
+                price.setText("Tổng tiền: "+(tongtienhang + ship) + " VNĐ");
                 orderInnerAdapter = new OrderInnerAdapter(arr, context);
                 LinearLayoutManager l = new LinearLayoutManager(context);
                 l.setOrientation(LinearLayoutManager.VERTICAL);

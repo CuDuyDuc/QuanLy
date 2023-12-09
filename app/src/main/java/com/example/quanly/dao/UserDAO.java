@@ -3,6 +3,7 @@ package com.example.quanly.dao;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -32,45 +33,53 @@ public class UserDAO {
     }
     public interface UserDAOITF{void xuli(Object obj);}
     public void checkLogin(String username, String password, UserDAOITF xuli){
+        if(!validateForm(username) && !validateForm(password)) {
+            RequestQueue requestQueue = Volley.newRequestQueue(context);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, checkLoginURL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
 
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, checkLoginURL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        User user = new User(
+                                username,
+                                object.getString("name"),
+                                object.getString("phone"),
+                                object.getString("email")
+                        );
+                        xuli.xuli(user);
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.putExtra("user", user);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
 
-                try {
-                    JSONObject object = new JSONObject(response);
-                    User user = new User(
-                            username,
-                            object.getString("name"),
-                            object.getString("phone"),
-                            object.getString("email")
-                    );
-                    xuli.xuli(user);
-                    Intent intent = new Intent(context, MainActivity.class);
-                    intent.putExtra("user", user);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-
-                } catch (JSONException e) {
-                    Log.e("errr userdao 54", e.getMessage());
+                    } catch (JSONException e) {
+                        Log.e("errr userdao 54", e.getMessage());
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("errr userdao 61", error.getMessage());
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String , String> map = new HashMap<>();
-                map.put("username",username);
-                map.put("password", password);
-                return map;
-            }
-        };
-        requestQueue.add(stringRequest);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("errr userdao 61", error.getMessage());
+                }
+            }){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String , String> map = new HashMap<>();
+                    map.put("username",username);
+                    map.put("password", password);
+                    return map;
+                }
+            };
+            requestQueue.add(stringRequest);
+        } else {
+            Toast.makeText(context, "Thông tin không được để trống!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean validateForm(String str){
+        return (str.isEmpty() || str.equals("")) ? true : false ;
+
     }
 }

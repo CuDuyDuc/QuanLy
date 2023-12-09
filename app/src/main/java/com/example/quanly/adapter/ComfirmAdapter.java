@@ -43,7 +43,7 @@ public class ComfirmAdapter extends RecyclerView.Adapter<ComfirmAdapter.ViewHold
         OrderOuter orderOuter = orderOuters.get(position);
         holder.id.setText(orderOuter.getIddonhang());
         holder.date.setText(orderOuter.getDate());
-        holder.totalprice.setText("Tổng tiền: " + orderOuter.getTotalprice() +"đ");
+        holder.totalprice.setText("Tổng tiền: " + orderOuter.getTotalprice() +"VNĐ");
         setData(orderOuter.getIddonhang() , holder.rcv);
         holder.btncomfirm.setOnClickListener(v -> {
             orderDAO.changComfirm(orderOuter.getIddonhang(), new OrderDAO.OrderDAOITF() {

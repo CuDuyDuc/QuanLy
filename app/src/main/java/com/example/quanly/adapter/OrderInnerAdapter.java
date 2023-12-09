@@ -37,7 +37,7 @@ public class OrderInnerAdapter extends RecyclerView.Adapter<OrderInnerAdapter.Vi
         OrderInner donhang = arrayList.get(position);
         int idimg = context.getResources().getIdentifier("drawable/"+donhang.getImg(), null, context.getPackageName());
         holder.img.setImageResource(idimg);
-        holder.price.setText((donhang.getPrice()) * donhang.getQuantitty()+ "đ");
+        holder.price.setText((donhang.getPrice()) * donhang.getQuantitty()+ "VNĐ");
         holder.quantity.setText("SL: "+donhang.getQuantitty()+"");
         holder.description.setText(donhang.getDescription());
         holder.name.setText(donhang.getName());
